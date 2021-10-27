@@ -17,7 +17,7 @@ urls = ['http://schemas.android.com/apk/res-auto', \
 
 partialURLs = []
 
-userAgents = []
+userAgents = ['com.wire']
 
 partialUserAgents = []
 

@@ -55,7 +55,7 @@ urls = [
 
 partialURLs = []
 
-userAgents = []
+userAgents = ['com.telegram']
 
 partialUserAgents = []
 

@@ -89,7 +89,7 @@ urls = ['http://ns.adobe.com/xap/1.0/', \
 
 partialURLs = []
 
-userAgents = []
+userAgents = ['org.thoughtcrime.securesms']
 
 partialUserAgents = []
 

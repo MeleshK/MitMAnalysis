@@ -78,7 +78,7 @@ urls = ['https://www.whatsapp.com/security?lg=', \
 
 partialURLs = []
 
-userAgents = []
+userAgents = ['network.loki.messenger']
 
 partialUserAgents = []
 
