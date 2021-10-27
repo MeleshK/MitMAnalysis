@@ -10,20 +10,6 @@ import AndroidDataPrivacy.RawDataSearch as RawDataSearch
 import AndroidDataPrivacy.Applications.AppDefault as AppDefault
 import AndroidDataPrivacy.Applications.AndroidNative as AndroidNative
 import AndroidDataPrivacy.Applications.GSuite as GSuite
-import AndroidDataPrivacy.Applications.Youtube as Youtube
-import AndroidDataPrivacy.Applications.Reddit as Reddit
-import AndroidDataPrivacy.Applications.Slack as Slack
-import AndroidDataPrivacy.Applications.Discord as Discord
-import AndroidDataPrivacy.Applications.Spotify as Spotify
-import AndroidDataPrivacy.Applications.Venmo as Venmo
-import AndroidDataPrivacy.Applications.Facebook as Facebook
-import AndroidDataPrivacy.Applications.LinkedIn as LinkedIn
-import AndroidDataPrivacy.Applications.Canvas as Canvas
-import AndroidDataPrivacy.Applications.RocketChat as RocketChat
-import AndroidDataPrivacy.Applications.Hulu as Hulu
-import AndroidDataPrivacy.Applications.Netflix as Netflix
-import AndroidDataPrivacy.Applications.KeeperSecurity as KeeperSecurity
-import AndroidDataPrivacy.Applications.CertInstaller as CertInstaller
 
 testNumList = list(range(41,53))
 filename = 'capturefixed.txt'
@@ -292,36 +278,10 @@ def checkFlow(flow):
 	flow.app = AppFinder.findApp(flow, appList)
 	#print('App: ' + flow.app)
 	
-	if (flow.app == 'CertInstaller' and 'CertInstaller' in appList):
-		CertInstaller.checkBehavior(flow, results)
 	if (flow.app == 'GSuite' and 'GSuite' in appList):
 		GSuite.checkBehavior(flow, results)
-	if (flow.app == 'Youtube' and 'Youtube' in appList):
-		Youtube.checkBehavior(flow, results)
-	if (flow.app == 'Reddit' and 'Reddit' in appList):
-		Reddit.checkBehavior(flow, results)
-	if (flow.app == 'Slack' and 'Slack' in appList):
-		Slack.checkBehavior(flow, results)
-	if (flow.app == 'Discord' and 'Discord' in appList):
-		Discord.checkBehavior(flow, results)
-	if (flow.app == 'Spotify' and 'Spotify' in appList):
-		Spotify.checkBehavior(flow, results)
-	if (flow.app == 'Venmo' and 'Venmo' in appList):
-		Venmo.checkBehavior(flow, results)
-	if (flow.app == 'Facebook' and 'Facebook' in appList):
-		Facebook.checkBehavior(flow, results)
-	if (flow.app == 'LinkedIn' and 'LinkedIn' in appList):
-		LinkedIn.checkBehavior(flow, results)
-	if (flow.app == 'Canvas' and 'Canvas' in appList):
-		Canvas.checkBehavior(flow, results)
-	if (flow.app == 'RocketChat' and 'RocketChat' in appList):
-		RocketChat.checkBehavior(flow, results)
-	if (flow.app == 'Hulu' and 'Hulu' in appList):
-		Hulu.checkBehavior(flow, results)
-	if (flow.app == 'Netflix' and 'Netflix' in appList):
-		Netflix.checkBehavior(flow, results)
-	if (flow.app == 'KeeperSecurity' and 'KeeperSecurity' in appList):
-		KeeperSecurity.checkBehavior(flow, results)
+	if (flow.app == 'WhatsApp' and 'WhatsApp' in appList):
+		WhatsApp.checkBehavior(flow, results)
 	if (flow.app == 'AndroidNative' and 'AndroidNative' in appList):
 		AndroidNative.checkBehavior(flow, results)
 	if (flow.app == 'AppDefault' and 'AppDefault' in appList):

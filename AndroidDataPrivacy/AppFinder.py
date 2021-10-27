@@ -18,13 +18,13 @@ def findApp(flow, appList):
 			if (flow.url.find(item) > -1):
 				return 'LinkedIn'
 
-	if 'RocketChat' in appList:
-		import AndroidDataPrivacy.Applications.RocketChat as RocketChat
-		if flow.url in RocketChat.urls:
-			return 'RocketChat'
-		for item in RocketChat.partialURLs:
+	if 'WhatsApp' in appList:
+		import AndroidDataPrivacy.Applications.WhatsApp as WhatsApp
+		if flow.url in WhatsApp.urls:
+			return 'WhatsApp'
+		for item in WhatsApp.partialURLs:
 			if (flow.url.find(item) > -1):
-				return 'RocketChat'
+				return 'WhatsApp'
 
 	if (app == '' and 'User-Agent' in flow.requestHeaders.keys()):
 		app = identifyUserAgent(flow.requestHeaders['User-Agent'], appList)
