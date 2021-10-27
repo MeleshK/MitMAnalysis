@@ -25,7 +25,7 @@ newFlowFileName = 'newflows.txt'
 capture = file.readlines()
 flows = []
 results = []
-appList = ['AppDefault','AndroidNative','GSuite','WhatsApp', 'Telegram','Session', 'Wire', 'signal']
+appList = ['AppDefault','AndroidNative','GSuite','WhatsApp', 'Telegram','Session', 'Wire', 'Signal', 'FDroid']
 log = syslog_client.Syslog()
 
 def printFlows():

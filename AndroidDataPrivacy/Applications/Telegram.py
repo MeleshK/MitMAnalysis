@@ -10,7 +10,7 @@ urls = [
 'https://t.me/socks?', \
 'https://www.googleapis.com/auth/games', \
 'http://schema.org/FailedActionStatus', \
-'https://firebaseremoteconfig.googleapis.com/v1/projects/%s/namespaces/%s:fetch', /
+'https://firebaseremoteconfig.googleapis.com/v1/projects/%s/namespaces/%s:fetch', \
 'https://www.google.com/resolve?name=', \
 'https://telegram.org/dl', \
 'https://www.instagram.com/explore/tags/', \
