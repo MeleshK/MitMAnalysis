@@ -19,7 +19,7 @@ echo "" > stream.txt
 echo "" > capture.txt
 
 #Starts mitmdump and outputs to stream.txt
-~/mitm/mitmdump --set block_global=false --set flow_detail=3 --verbose -s mitmdecode.py > stream.txt  2>/dev/null &
+~/mitm/mitmdump --anticomp --anticache --set block_global=false --set flow_detail=3 --verbose --mode transparent --ssl-insecure -s mitmdecode.py > stream.txt  2>/dev/null &
 
 #Every 10  seconds, put stream into capture
 #Then empty the contents to stream
