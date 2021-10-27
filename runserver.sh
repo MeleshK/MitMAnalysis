@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#Checks to see if mitmdump is already running
+#Checks to see if mitmweb is already running
 #If so, kills the processes
-PROCESS=$(ps aux | grep mitmdump | tr -s " " | cut -d " " -f 2,11)
+PROCESS=$(ps aux | grep mitmweb | tr -s " " | cut -d " " -f 2,11)
 echo "$PROCESS" | while read -r i
 do
     PSNAME=$(echo "$i" | cut -d " " -f 2)
 
-    if [ "$PSNAME" == *"./mitmdump"* ]
+    if [ "$PSNAME" == *"./mitmweb"* ]
     then
         PSNUM=$(echo "$i" | cut -d " " -f 1)
         echo "Shutting down process $PSNUM $PSNAME"
@@ -18,8 +18,9 @@ done
 echo "" > stream.txt
 echo "" > capture.txt
 
-#Starts mitmdump and outputs to stream.txt
-~/mitm/mitmdump --anticomp --anticache --set block_global=false --set flow_detail=3 --verbose --mode transparent --ssl-insecure -s mitmdecode.py > stream.txt  2>/dev/null &
+#Starts mitmweb and outputs to stream.txt
+ mitmweb --anticomp --anticache --set block_global=false --set flow_detail=3 --mode transparent --showhost --web-host 10.0.0.31 --web-port 9090 --ssl-insecure --verbose
+#~/mitm/mitmdump --anticomp --anticache --set block_global=false --set flow_detail=3 --verbose --mode transparent --ssl-insecure -s mitmdecode.py > stream.txt  2>/dev/null &
 
 #Every 10  seconds, put stream into capture
 #Then empty the contents to stream
