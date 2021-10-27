@@ -10,7 +10,11 @@ import AndroidDataPrivacy.RawDataSearch as RawDataSearch
 import AndroidDataPrivacy.Applications.AppDefault as AppDefault
 import AndroidDataPrivacy.Applications.AndroidNative as AndroidNative
 import AndroidDataPrivacy.Applications.GSuite as GSuite
+import AndroidDataPrivacy.Applications.Telegram as Telegram
 import AndroidDataPrivacy.Applications.WhatsApp as WhatsApp
+import AndroidDataPrivacy.Applications.Wire as Wire
+import AndroidDataPrivacy.Applications.Session as Session
+import AndroidDataPrivacy.Applications.Signal as Signal
 
 testNumList = list(range(41,53))
 filename = 'capturefixed.txt'
@@ -279,8 +283,18 @@ def checkFlow(flow):
 	
 	if (flow.app == 'GSuite' and 'GSuite' in appList):
 		GSuite.checkBehavior(flow, results)
+	if (flow.app == 'FDroid' and 'FDroid' in appList):
+		FDroid.checkBehavior(flow, results)
+	if (flow.app == 'Session' and 'Session' in appList):
+		Session.checkBehavior(flow, results)		
+	if (flow.app == 'Signal' and 'Signal' in appList):
+		Signal.checkBehavior(flow, results)
+	if (flow.app == 'Telegram' and 'Telegram' in appList):
+		Telegram.checkBehavior(flow, results)
 	if (flow.app == 'WhatsApp' and 'WhatsApp' in appList):
-		WhatsApp.checkBehavior(flow, results)
+		WhatsApp.checkBehavior(flow, results)		
+	if (flow.app == 'Wire' and 'Wire' in appList):
+		Wire.checkBehavior(flow, results)
 	if (flow.app == 'AndroidNative' and 'AndroidNative' in appList):
 		AndroidNative.checkBehavior(flow, results)
 	if (flow.app == 'AppDefault' and 'AppDefault' in appList):
