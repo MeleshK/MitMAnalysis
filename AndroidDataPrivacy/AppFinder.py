@@ -18,6 +18,38 @@ def findApp(flow, appList):
 			if (flow.url.find(item) > -1):
 				return 'LinkedIn'
 
+	if 'FDroid' in appList:
+		import AndroidDataPrivacy.Applications.FDroid as FDroid
+		if flow.url in FDroid.urls:
+			return 'FDroid'
+		for item in FDroid.partialURLs:
+			if (flow.url.find(item) > -1):
+				return 'FDroid'	
+
+	if 'Session' in appList:
+		import AndroidDataPrivacy.Applications.Session as Session
+		if flow.url in Session.urls:
+			return 'Session'
+		for item in Session.partialURLs:
+			if (flow.url.find(item) > -1):
+				return 'Session'	
+
+	if 'Signal' in appList:
+		import AndroidDataPrivacy.Applications.Signal as Signal
+		if flow.url in Signal.urls:
+			return 'Signal'
+		for item in Signal.partialURLs:
+			if (flow.url.find(item) > -1):
+				return 'Signal'
+
+	if 'Telegram' in appList:
+		import AndroidDataPrivacy.Applications.Telegram as Telegram
+		if flow.url in Telegram.urls:
+			return 'Telegram'
+		for item in Telegram.partialURLs:
+			if (flow.url.find(item) > -1):
+				return 'Telegram'
+
 	if 'WhatsApp' in appList:
 		import AndroidDataPrivacy.Applications.WhatsApp as WhatsApp
 		if flow.url in WhatsApp.urls:
@@ -25,6 +57,14 @@ def findApp(flow, appList):
 		for item in WhatsApp.partialURLs:
 			if (flow.url.find(item) > -1):
 				return 'WhatsApp'
+
+	if 'Wire' in appList:
+		import AndroidDataPrivacy.Applications.Wire as Wire
+		if flow.url in Wire.urls:
+			return 'Wire'
+		for item in Wire.partialURLs:
+			if (flow.url.find(item) > -1):
+				return 'Wire'
 
 	if (app == '' and 'User-Agent' in flow.requestHeaders.keys()):
 		app = identifyUserAgent(flow.requestHeaders['User-Agent'], appList)
