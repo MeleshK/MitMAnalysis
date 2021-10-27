@@ -10,6 +10,7 @@ import AndroidDataPrivacy.RawDataSearch as RawDataSearch
 import AndroidDataPrivacy.Applications.AppDefault as AppDefault
 import AndroidDataPrivacy.Applications.AndroidNative as AndroidNative
 import AndroidDataPrivacy.Applications.GSuite as GSuite
+import AndroidDataPrivacy.Applications.WhatsApp as WhatsApp
 
 testNumList = list(range(41,53))
 filename = 'capturefixed.txt'
@@ -20,9 +21,7 @@ newFlowFileName = 'newflows.txt'
 capture = file.readlines()
 flows = []
 results = []
-appList = ['AppDefault','AndroidNative','GSuite','Youtube', 'Reddit', 'Slack', 'Discord', 'Spotify', \
-'Venmo', 'Facebook', 'LinkedIn', 'Canvas', 'RocketChat', 'Hulu', 'Netflix', 'KeeperSecurity', \
-'CertInstaller', 'RawDataSearch']
+appList = ['AppDefault','AndroidNative','GSuite','WhatsApp', 'Telegram','Session', 'Wire', 'signal']
 log = syslog_client.Syslog()
 
 def printFlows():
