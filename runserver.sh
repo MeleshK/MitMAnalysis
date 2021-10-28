@@ -18,8 +18,7 @@ echo "" > stream.txt
 echo "" > capture.txt
 
 #Starts mitmweb and outputs to stream.txt
- mitmweb --anticomp --anticache --set block_global=false --set flow_detail=3 --mode transparent --showhost --web-host 10.0.0.31 --web-port 9090 --ssl-insecure --verbose
-#~/mitm/mitmdump --anticomp --anticache --set block_global=false --set flow_detail=3 --verbose --mode transparent --ssl-insecure -s mitmdecode.py > stream.txt  2>/dev/null &
+ mitmdump --anticomp --anticache --set block_global=false --set flow_detail=3 --mode transparent --ssl-insecure --verbose -s mitmdecode.py > stream.txt  2>/dev/null &
 
 #Every 10  seconds, put stream into capture
 #Then empty the contents to stream
@@ -29,7 +28,7 @@ do
 	cat stream.txt >> capture.txt
 	tr < capture.txt -d '\000' > capturefixed.txt
 	cat capturefixed.txt >> backup.txt
-	echo "" > stream.txt
+	echo "" > stream.txt # empty stream file
 	python3 ./AnalysisMain.py
-	echo "" > capture.txt
+	echo "" > capture.txt # empty capture file
 done
