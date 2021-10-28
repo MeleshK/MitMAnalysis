@@ -17,7 +17,7 @@ urls = ['http://wifi-not-enabled', \
 
 partialURLs = []
 
-userAgents = []
+userAgents = ['org.fdroid.fdroid']
 
 partialUserAgents = []
 
