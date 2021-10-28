@@ -83,7 +83,7 @@ def checkResponseHeaders(flow, headers, results):
 	return None
 
 def checkGetURL(flow, results):
-	flow.source = 'WhatsApp'
+	flow.source = 'Wire'
 
 	if (flow.url.find('https://certify.alexametrics.com/atrk') == 0):
 		type = 'RocketChat AlexaMetrics Session Cookie'
@@ -135,7 +135,7 @@ def checkGetURL(flow, results):
 
 
 def checkPostURL(flow, results):
-	flow.source = 'WhatsApp'
+	flow.source = 'Wire'
 
 	if (flow.url == 'https://open.rocket.chat/api/v1/users.register'):
 		type = 'User Info: Email Address'
