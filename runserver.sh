@@ -10,7 +10,7 @@ do
     if [[ "$PSNAME" == *"/mitm"* ]]; then
         PSNUM=$(echo "$i" | cut -d " " -f 1)
         echo "Shutting down process $PSNUM $PSNAME"
-	kill -9 $PSNUM
+		sudo kill -9 $PSNUM
     fi
 done
 
