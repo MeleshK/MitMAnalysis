@@ -192,7 +192,7 @@ def checkPostURL(flow, results):
 	elif (flow.url.find('https://www.youtube.com/error_204') == 0):
 		source = 'Youtube Error'
 		type = 'Youtube Error Message'
-		info = AppDefault.findFormEntry(requestContent, 'exception.message')
+		info = AppDefault.findFormEntry(flow.requestContent, 'exception.message')
 		results.append(Result.Result(flow, type, info))
 
 	elif (flow.url.find('https://youtubei.googleapis.com/youtubei/v1/browse/edit_playlist') == 0):

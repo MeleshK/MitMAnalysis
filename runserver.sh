@@ -2,16 +2,16 @@
 
 #Checks to see if mitmweb is already running
 #If so, kills the processes
-PROCESS=$(ps aux | grep mitmweb | tr -s " " | cut -d " " -f 2,11)
+PROCESS=$(ps aux | grep mitmweb | tr -s " " | cut -d " " -f 2,11,12)
 echo "$PROCESS" | while read -r i
 do
     PSNAME=$(echo "$i" | cut -d " " -f 2)
-
+	echo $PSNAME
     if [ "$PSNAME" == *"mitm"* ]
     then
         PSNUM=$(echo "$i" | cut -d " " -f 1)
         echo "Shutting down process $PSNUM $PSNAME"
-	kill -9 $PSNUM
+	sudo kill -9 $PSNUM
     fi
 done
 
