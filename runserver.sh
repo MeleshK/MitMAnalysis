@@ -5,7 +5,7 @@
 PROCESS=$(ps aux | grep mitmweb | tr -s " " | cut -d " " -f 2,11,12)
 echo "$PROCESS" | while read -r i
 do
-    PSNAME=$(echo "$i" | cut -d " " -f 2)
+    PSNAME=$(echo "$i" | cut -d " " -f 3)
 
     if [[ "$PSNAME" == *"/mitm"* ]]; then
         PSNUM=$(echo "$i" | cut -d " " -f 1)
