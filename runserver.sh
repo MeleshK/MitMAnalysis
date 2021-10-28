@@ -7,7 +7,7 @@ echo "$PROCESS" | while read -r i
 do
     PSNAME=$(echo "$i" | cut -d " " -f 2)
 
-    if [ "$PSNAME" == *"./mitm"* ]
+    if [ "$PSNAME" == *"mitm"* ]
     then
         PSNUM=$(echo "$i" | cut -d " " -f 1)
         echo "Shutting down process $PSNUM $PSNAME"
