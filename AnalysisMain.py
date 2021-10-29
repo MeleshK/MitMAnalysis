@@ -1,32 +1,31 @@
 #!/usr/bin/python3
 
-import AndroidDataPrivacy.syslog_client as syslog_client
-
-import AndroidDataPrivacy.Flow as Flow
-import AndroidDataPrivacy.Result as Result
 import AndroidDataPrivacy.AppFinder as AppFinder
-import AndroidDataPrivacy.RawDataSearch as RawDataSearch
-
-import AndroidDataPrivacy.Applications.AppDefault as AppDefault
 import AndroidDataPrivacy.Applications.AndroidNative as AndroidNative
-import AndroidDataPrivacy.Applications.GSuite as GSuite
+import AndroidDataPrivacy.Applications.AppDefault as AppDefault
 import AndroidDataPrivacy.Applications.FDroid as FDroid
+import AndroidDataPrivacy.Applications.GSuite as GSuite
+import AndroidDataPrivacy.Applications.Session as Session
+import AndroidDataPrivacy.Applications.Signal as Signal
 import AndroidDataPrivacy.Applications.Telegram as Telegram
 import AndroidDataPrivacy.Applications.WhatsApp as WhatsApp
 import AndroidDataPrivacy.Applications.Wire as Wire
-import AndroidDataPrivacy.Applications.Session as Session
-import AndroidDataPrivacy.Applications.Signal as Signal
+import AndroidDataPrivacy.Applications.Youtube as YouTube
+import AndroidDataPrivacy.Flow as Flow
+import AndroidDataPrivacy.RawDataSearch as RawDataSearch
+import AndroidDataPrivacy.Result as Result
+import AndroidDataPrivacy.syslog_client as syslog_client
 
 testNumList = list(range(41,53))
 filename = 'capturefixed.txt'
 #filename = 'backup.txt'
 #filename = 'newflows.txt'
-file = open(filename, "r")
+file = open(filename, "r", encoding="ISO-8859-1")
 newFlowFileName = 'newflows.txt'
 capture = file.readlines()
 flows = []
 results = []
-appList = ['AppDefault','AndroidNative','GSuite','WhatsApp', 'Telegram','Session', 'Wire', 'Signal', 'FDroid']
+appList = ['AppDefault','AndroidNative','GSuite','WhatsApp', 'Telegram','Session', 'Wire', 'Signal', 'FDroid', 'YouTube']
 log = syslog_client.Syslog()
 
 def printFlows():
@@ -112,7 +111,7 @@ def checkForUseless(flow):
 		return False
 
 def findNewFlows():
-	newFlowFile = open(newFlowFileName, "w")
+	newFlowFile = open(newFlowFileName, "wb")
 	newFlows = []
 	oldURLs = ['https://googleads.g.doubleclick.net/pagead', \
 	'https://www.youtube.com/pagead', \
@@ -296,6 +295,8 @@ def checkFlow(flow):
 		WhatsApp.checkBehavior(flow, results)		
 	if (flow.app == 'Wire' and 'Wire' in appList):
 		Wire.checkBehavior(flow, results)
+	if (flow.app == 'YouTube' and 'YouTube' in appList):
+		YouTube.checkBehavior(flow, results)
 	if (flow.app == 'AndroidNative' and 'AndroidNative' in appList):
 		AndroidNative.checkBehavior(flow, results)
 	if (flow.app == 'AppDefault' and 'AppDefault' in appList):
@@ -338,6 +339,6 @@ def analyzeAll():
 
 separateFlows()
 printFlows()
-analyzeAll()
+#analyzeAll()
 #testFlows(testNumList)
-#findNewFlows()
+findNewFlows()

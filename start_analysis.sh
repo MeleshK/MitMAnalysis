@@ -1,10 +1,10 @@
 #!/bin/bash
-printf "$1 copying to capture.txt"
+printf "\n$1 copying to capture.txt"
 cat $1 >> capture.txt
-printf "Removing '\000'"
+printf "\nRemoving '\000'"
 tr < capture.txt -d '\000' > capturefixed.txt
-printf "Taking backup"
+printf "\nTaking backup"
 cat capturefixed.txt >> backup.txt
-printf "Performing analysis"
+printf "\nPerforming analysis"
 python3 ./AnalysisMain.py
-printf "Analysis Complete"
+printf "\nAnalysis Complete"
