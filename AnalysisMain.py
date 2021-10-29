@@ -261,7 +261,7 @@ def findNewFlows():
 	count = 0
 	analyzeAll()
 	for flow in flows:
-		print(count)
+		#print(count)
 		for oldURL in oldURLs:
 			if (flow.url.find(oldURL) == 0):
 				old = True
@@ -279,7 +279,7 @@ def findNewFlows():
 def checkFlow(flow):
 	results = []
 	flow.app = AppFinder.findApp(flow, appList)
-	print('App: ' + flow.app)
+	#print('App: ' + flow.app)
 	
 	if (flow.app == 'GSuite' and 'GSuite' in appList):
 		GSuite.checkBehavior(flow, results)
