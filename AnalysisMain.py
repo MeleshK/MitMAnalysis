@@ -338,7 +338,7 @@ def analyzeAll():
 		count = count + 1
 
 separateFlows()
-printFlows()
-#analyzeAll()
+#printFlows()
+analyzeAll()
 #testFlows(testNumList)
-findNewFlows()
+#findNewFlows()
