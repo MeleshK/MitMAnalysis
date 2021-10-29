@@ -111,7 +111,7 @@ def checkForUseless(flow):
 		return False
 
 def findNewFlows():
-	newFlowFile = open(newFlowFileName, "wb")
+	newFlowFile = open(newFlowFileName, "w")
 	newFlows = []
 	oldURLs = ['https://googleads.g.doubleclick.net/pagead', \
 	'https://www.youtube.com/pagead', \
