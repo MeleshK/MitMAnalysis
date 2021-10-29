@@ -10,6 +10,7 @@ import AndroidDataPrivacy.RawDataSearch as RawDataSearch
 import AndroidDataPrivacy.Applications.AppDefault as AppDefault
 import AndroidDataPrivacy.Applications.AndroidNative as AndroidNative
 import AndroidDataPrivacy.Applications.GSuite as GSuite
+import AndroidDataPrivacy.Applications.FDroid as FDroid
 import AndroidDataPrivacy.Applications.Telegram as Telegram
 import AndroidDataPrivacy.Applications.WhatsApp as WhatsApp
 import AndroidDataPrivacy.Applications.Wire as Wire
@@ -259,7 +260,7 @@ def findNewFlows():
 
 	old = False
 	count = 0
-	#analyzeAll()
+	analyzeAll()
 	for flow in flows:
 		print(count)
 		for oldURL in oldURLs:
@@ -279,7 +280,7 @@ def findNewFlows():
 def checkFlow(flow):
 	results = []
 	flow.app = AppFinder.findApp(flow, appList)
-	#print('App: ' + flow.app)
+	print('App: ' + flow.app)
 	
 	if (flow.app == 'GSuite' and 'GSuite' in appList):
 		GSuite.checkBehavior(flow, results)
@@ -302,8 +303,8 @@ def checkFlow(flow):
 	AppDefault.syncSource(flow, results)
 	if ('RawDataSearch' in appList):
 		RawDataSearch.checkRawData(flow, results)
-	#print(flow.all)
-	#printLogs(results)
+	print(flow.all)
+	printLogs(results)
 	sendLogs(results)
 
 def sendLogs(results):
@@ -324,19 +325,19 @@ def printLogs(results):
 def testFlows(numList):
 	for num in numList:
 		print(num)
-		#print(flows[num].all)
-		#print(AppDefault.cleanEncoding(flows[num].responseContent))
+		print(flows[num].all)
+		print(AppDefault.cleanEncoding(flows[num].responseContent))
 		checkFlow(flows[num])
 
 def analyzeAll():
 	count = 0
 	for flow in flows:
-		#print(count)
+		print(count)
 		checkFlow(flow)
 		count = count + 1
 
 separateFlows()
-#printFlows()
+printFlows()
 analyzeAll()
 #testFlows(testNumList)
 #findNewFlows()
