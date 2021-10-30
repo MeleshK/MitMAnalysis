@@ -271,7 +271,8 @@ def findNewFlows():
 					old = True
 		if (old == False):
 			newFlows.append(flow)
-			newFlowFile.write(flow.all)
+			data = flow.all
+			newFlowFile.write(data.encode('cp1252', errors='replace').decode('cp1252'))
 		old = False
 		count = count + 1
 
@@ -333,12 +334,12 @@ def testFlows(numList):
 def analyzeAll():
 	count = 0
 	for flow in flows:
-		print(count)
+		#print(count)
 		checkFlow(flow)
 		count = count + 1
 
 separateFlows()
 #printFlows()
 analyzeAll()
-#testFlows(testNumList)
+testFlows(testNumList)
 #findNewFlows()
