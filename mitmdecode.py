@@ -1,10 +1,9 @@
-import mitmproxy
+from mitmproxy import flowfilter
+from mitmproxy import ctx, http
 
 def response(flow):
-	with decoded(flow.response):
 		flow.response.content = flow.response.assemble
 
 def request( flow):
-	with decoded(flow.request):
 		flow.request.content = flow.request.assemble
 
