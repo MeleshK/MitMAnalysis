@@ -1,0 +1,19 @@
+{
+    "logPath": "http_logs_test.txt",
+    "request": {
+        "headers": [
+            "*"
+        ],
+        "fields": [
+            "scheme",
+            "host",
+            "method"
+        ]
+    },
+    "response": {
+        "headers": [
+            "Content-Type",
+            "Content-Length"
+        ]
+    }
+}
