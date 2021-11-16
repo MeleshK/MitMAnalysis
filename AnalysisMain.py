@@ -263,9 +263,9 @@ def find_new_flows():
 
 	old = False
 	count = 0
-	analyze_all()
+	#analyze_all()
 	for flow in flows:
-		# print(count)
+		print(count)
 		for oldURL in old_urls:
 			if flow.url.find(oldURL) == 0:
 				old = True
@@ -309,8 +309,8 @@ def check_flow(flow):
 	AppDefault.syncSource(flow, results)
 	if 'RawDataSearch' in appList:
 		RawDataSearch.checkRawData(flow, results)
-	print(flow.all)
-	print_logs(results)
+	#print(flow.all)
+	#print_logs(results)
 	send_logs(results)
 
 
@@ -334,8 +334,8 @@ def print_logs(log_results):
 def test_flows(numlist):
 	for num in numlist:
 		print(num)
-		print(flows[num].all)
-		print(AppDefault.cleanEncoding(flows[num].responseContent))
+		#print(flows[num].all)
+		#print(AppDefault.cleanEncoding(flows[num].responseContent))
 		check_flow(flows[num])
 
 
@@ -350,5 +350,5 @@ def analyze_all():
 separate_flows()
 # printFlows()
 analyze_all()
-test_flows(testNumList)
+#test_flows(testNumList)
 # findNewFlows()
