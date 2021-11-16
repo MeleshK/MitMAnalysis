@@ -73,42 +73,45 @@ def separate_flows():
 
 
 def check_for_useless(flow):
-	if (flow[0:14] == 'Loading script' or flow[0:22] == 'Proxy server listening' or flow[0:9] == 'Traceback' or
-		flow[0:1] == '<' or
-		flow[0:12] == 'Auto Content' or
-		flow[0:10] == 'ValueError' or
-		flow[0:15] == 'During handling' or
-		flow[0:18] == 'UnicodeDecodeError' or
-		flow[0:17] == 'Initiating HTTP/2' or
-		flow[0:19] == 'EOFError: requested' or
-		flow[0:54] == 'TypeError: don\'t know how to handle UnicodeDecodeError' or
-		flow[0:flow.find('\n')].find('StreamClosedError') > -1 or
-		flow[0:flow.find('\n')].find('HEADERS frame suppressed') > -1 or
-		flow[0:flow.find('\n')].find('HTTP/2 PRIORITY frame suppressed') > -1 or
-		flow[0:flow.find('\n')].find('ALPN') > -1 or
-		flow[0:flow.find('\n')].find('HTTP2 Event') > -1 or
-		flow[0:flow.find('\n')].find('clientconnect') > -1 or
-		flow[0:flow.find('\n')].find('serverconnect') > -1 or
-		flow[0:flow.find('\n')].find('clientdisconnect') > -1 or
-		flow[0:flow.find('\n')].find('serverdisconnect') > -1 or
-		flow[0:flow.find('\n')].find('Error in WebSocket connection') > -1 or
-		flow[0:flow.find('\n')].find('WebSocket connection closed') > -1 or
-		flow[flow.find('\n'):].find('-> Request') > -1 or
-		flow[flow.find('\n'):].find('-> Response') > -1 or
-		flow[0:flow.find('\n')].find(': CONNECT') > -1 or
-		flow[0:flow.find('\n')].find('Set new server address:') > -1 or
-		flow[0:flow.find('\n')].find('WebSocket 2 message') > -1 or
-		flow[0:flow.find('\n')].find('WebSocket 1 message') > -1 or
-		flow[0:flow.find('\n')].find('Failed to send error response to client:') > -1 or
-		flow[0:flow.find('\n')].find(': HTTP/2 connection terminated by server: error code:') > -1 or
-		flow[0:flow.find('\n')].find('Establish TLS') > -1 or
-		flow[0:].find('Cannot establish TLS with client') > -1 or
-		flow[0:].find('Error connecting to') > -1 or
-		flow[0:].find('SourceFile:') > -1 or
-		flow[0:].find('at java.') > -1 or
-		flow[0:flow.find('\n')].find('server communication error:') > -1 or
-		flow[0:flow.find('\n')].find('Connection killed') > -1 or
-		flow[0:flow.find('\n')].find('NotImplementedError') > -1):
+	if(
+			flow[0:14] == 'Loading script' or
+				flow[0:22] == 'Proxy server listening' or flow[0:9] == 'Traceback' or
+				flow[0:1] == '<' or
+				flow[0:12] == 'Auto Content' or
+				flow[0:10] == 'ValueError' or
+				flow[0:15] == 'During handling' or
+				flow[0:18] == 'UnicodeDecodeError' or
+				flow[0:17] == 'Initiating HTTP/2' or
+				flow[0:19] == 'EOFError: requested' or
+				flow[0:54] == 'TypeError: don\'t know how to handle UnicodeDecodeError' or
+				flow[0:flow.find('\n')].find('StreamClosedError') > -1 or
+				flow[0:flow.find('\n')].find('HEADERS frame suppressed') > -1 or
+				flow[0:flow.find('\n')].find('HTTP/2 PRIORITY frame suppressed') > -1 or
+				flow[0:flow.find('\n')].find('ALPN') > -1 or
+				flow[0:flow.find('\n')].find('HTTP2 Event') > -1 or
+				flow[0:flow.find('\n')].find('clientconnect') > -1 or
+				flow[0:flow.find('\n')].find('serverconnect') > -1 or
+				flow[0:flow.find('\n')].find('clientdisconnect') > -1 or
+				flow[0:flow.find('\n')].find('serverdisconnect') > -1 or
+				flow[0:flow.find('\n')].find('Error in WebSocket connection') > -1 or
+				flow[0:flow.find('\n')].find('WebSocket connection closed') > -1 or
+				flow[flow.find('\n'):].find('-> Request') > -1 or
+				flow[flow.find('\n'):].find('-> Response') > -1 or
+				flow[0:flow.find('\n')].find(': CONNECT') > -1 or
+				flow[0:flow.find('\n')].find('Set new server address:') > -1 or
+				flow[0:flow.find('\n')].find('WebSocket 2 message') > -1 or
+				flow[0:flow.find('\n')].find('WebSocket 1 message') > -1 or
+				flow[0:flow.find('\n')].find('Failed to send error response to client:') > -1 or
+				flow[0:flow.find('\n')].find(': HTTP/2 connection terminated by server: error code:') > -1 or
+				flow[0:flow.find('\n')].find('Establish TLS') > -1 or
+				flow[0:].find('Cannot establish TLS with client') > -1 or
+				flow[0:].find('Error connecting to') > -1 or
+				flow[0:].find('SourceFile:') > -1 or
+				flow[0:].find('at java.') > -1 or
+				flow[0:flow.find('\n')].find('server communication error:') > -1 or
+				flow[0:flow.find('\n')].find('Connection killed') > -1 or
+				flow[0:flow.find('\n')].find('NotImplementedError') > -1
+	):
 		return True
 	else:
 		return False
@@ -117,153 +120,157 @@ def check_for_useless(flow):
 def find_new_flows():
 	new_flow_file = open(newFlowFileName, "w")
 	new_flows = []
-	old_urls = ['https://googleads.g.doubleclick.net/pagead',
-	'https://www.youtube.com/pagead',
-	'https://s.youtube.com/api/stats',
-	'https://www.youtube.com/ptracking',
-	'https://www.google.com/pagead',
-	'https://www.youtube.com/csi_204',
-	'https://youtubei.googleapis.com/youtubei/v1/next?key=',
-	'https://i.ytimg.com',
-	'https://yt3.ggpht.com',
-	'https://securepubads.g.doubleclick.net',
-	'https://www.youtube.com/pcs/activeview',
-	'https://www.youtube.com/api/stats',
-	'https://www.gstatic.com/images',
-	'https://pagead2.googlesyndication.com/pcs/activeview',
-	'https://suggestqueries.google.com/complete/search',
-	'http://192.168.0.30',
-	'https://i9.ytimg.com',
-	'https://redirector.googlevideo.com',
-	'https://youtubei.googleapis.com/youtubei/v1/log_event',
-	'https://ad.doubleclick.net',
-	'https://s0.2mdn.net/viewad',
-	'https://spclient.wg.spotify.com/ads/v2/config',
-	'https://spclient.wg.spotify.com/abba-service/v1/resolve',
-	'https://pl.scdn.co/images/pl/default',
-	'https://i.scdn.co/image',
-	'https://spclient.wg.spotify.com/metadata/4',
-	'https://inbox.google.com/sync',
-	'https://www.google.com/complete/search',
-	'https://audio-sp-dca.pscdn.co/audio',
-	'https://scannables.scdn.co/uri/800/spotify',
-	'https://events.redditmedia.com',
-	'https://audio4-ak-spotify-com.akamaized.net/audio',
-	'https://spclient.wg.spotify.com',
-	'https://e.crashlytics.com',
-	'https://venmopics.appspot.com',
-	'https://venmo-merchant-images.s3.amazonaws.com',
-	'https://api.venmo.com/v1/account/settings/social',
-	'https://api.venmo.com/v1/alerts',
-	'https://platform-lookaside.fbsbx.com',
-	'https://api.venmo.com/v1/stories/target-or-actor',
-	'https://api.venmo.com/v1/users/merchant-payments-activation-views',
-	'https://api.venmo.com/v1/account',
-	'https://api.venmo.com/v1/venmo-card/settings',
-	'https://api.venmo.com/v1/payment-methods',
-	'https://api.venmo.com/v1/checkpoints',
-	'https://media.licdn.com/dms/image',
-	'https://www.linkedin.com/realtime/realtimeFrontendTimestamp',
-	'https://www.linkedin.com/li/track',
-	'https://static.licdn.com',
-	'https://www.linkedin.com/voyager/api/jobs/jobSeekerPreferences',
-	'https://www.linkedin.com/voyager/api/voyagerIdentityMarketplaceRoles',
-	'https://www.linkedin.com/voyager/api/voyagerIdentityProfileActionsV2?ids=',
-	'https://www.linkedin.com/voyager/api/legoWidgetImpressionEvents',
-	'https://www.linkedin.com/voyager/api/voyagerIdentityProfiles',
-	'https://www.linkedin.com/voyager/api/messaging/presenceStatuses',
-	'https://www.linkedin.com/voyager/api/typeahead/hits',
-	'https://www.linkedin.com/voyager/api/voyagerIdentityDashPrivacySettings',
-	'https://www.linkedin.com/voyager/api/premium/featureAccess',
-	'https://www.linkedin.com/voyager/api/feed/updates',
-	'https://www.linkedin.com/voyager/api/voyagerIdentitySearchAppearances',
-	'https://www.linkedin.com/voyager/api/identity/ge',
-	'https://www.linkedin.com/voyager/api/voyagerGrowthPageContent',
-	'https://www.linkedin.com/voyager/api/feed/packageRecommendations',
-	'https://media.licdn.com/media-proxy',
-	'https://dms.licdn.com/playback',
-	'https://dms.licdn.com/video-thumbs',
-	'https://www.linkedin.com/voyager/api/feed/richRecommendedEntities',
-	'https://www.linkedin.com/voyager/api/messaging/badge?action=markAllItemsAsSeen',
-	'https://www.linkedin.com/csp/simt',
-	'https://www.linkedin.com/voyager/api/growth/emailConfirmationTask',
-	'https://www.linkedin.com/voyager/api/messaging/badge?action=markAllItemsAsSeen',
-	'https://www.linkedin.com/voyager/api/messaging/conversations',
-	'https://www.linkedin.com/voyager/api/messaging/typeahead/hits',
-	'https://www.linkedin.com/voyager/api/messaging/peripheral/messagingSearchHistory',
-	'https://www.linkedin.com/cross-promo-fe/api/promo',
-	'https://www.linkedin.com/voyager/api/feed/badge',
-	'https://www.linkedin.com/voyager/api/search/history',
-	'https://js.stripe.com',
-	'https://play.googleapis.com/log/batch',
-	'https://mobilenetworkscoring-pa.googleapis.com/v1/GetWifiQuality',
-	'https://play.googleapis.com/log/batch',
-	'https://android.googleapis.com/auth',
-	'http://b.scorecardresearch.com',
-	'https://graph.facebook.com',
-	'https://vortex.hulu.com/api/v3/event',
-	'https://t.appsflyer.com/api',
-	'https://img.hulu.com',
-	'https://img1.hulu.com',
-	'https://img2.hulu.com',
-	'https://img3.hulu.com',
-	'https://img4.hulu.com',
-	'https://img5.hulu.com',
-	'https://img6.hulu.com',
-	'https://img7.hulu.com',
-	'https://img8.hulu.com',
-	'https://discover.hulu.com/content/v4/search',
-	'https://discover.hulu.com/content/v4/me/state',
-	'https://play.googleapis.com/play/log',
-	'https://stats.appsflyer.com/stats',
-	'https://play.hulu.com/v4/playlist',
-	'https://license.hulu.com',
-	'https://ads-e-darwin.hulustream.com',
-	'https://manifest.hulustream.com',
-	'https://ib.hulu.com/thumb',
-	'https://hulu.hb.omtrdc.net',
-	'https://t2.hulu.com',
-	'https://mb.moatads.com',
-	'https://http-e-darwin.hulustream.com',
-	'https://geo.moatads.com',
-	'https://px.moatads.com',
-	'https://z.moatads.com',
-	'https://ag.innovid.com',
-	'https://s.innovid.com',
-	'https://cws-hulu.conviva.com/0/wsg',
-	'https://settings.crashlytics.com/spi/v2/platforms/android/apps',
-	'https://android-appboot.netflix.com/appboot',
-	'https://android.prod.cloud.netflix.com/msl',
-	'https://android.prod.cloud.netflix.com/ichnaea',
-	'https://cast.google.com/cast/nearby/search',
-	'https://android.clients.google.com/c2dm/register3',
-	'https://keepersecurity.com/api/rest/vault/execute_v2_command']
+	old_urls = [
+		'https://googleads.g.doubleclick.net/pagead',
+		'https://www.youtube.com/pagead',
+		'https://s.youtube.com/api/stats',
+		'https://www.youtube.com/ptracking',
+		'https://www.google.com/pagead',
+		'https://www.youtube.com/csi_204',
+		'https://youtubei.googleapis.com/youtubei/v1/next?key=',
+		'https://i.ytimg.com',
+		'https://yt3.ggpht.com',
+		'https://securepubads.g.doubleclick.net',
+		'https://www.youtube.com/pcs/activeview',
+		'https://www.youtube.com/api/stats',
+		'https://www.gstatic.com/images',
+		'https://pagead2.googlesyndication.com/pcs/activeview',
+		'https://suggestqueries.google.com/complete/search',
+		'http://192.168.0.30',
+		'https://i9.ytimg.com',
+		'https://redirector.googlevideo.com',
+		'https://youtubei.googleapis.com/youtubei/v1/log_event',
+		'https://ad.doubleclick.net',
+		'https://s0.2mdn.net/viewad',
+		'https://spclient.wg.spotify.com/ads/v2/config',
+		'https://spclient.wg.spotify.com/abba-service/v1/resolve',
+		'https://pl.scdn.co/images/pl/default',
+		'https://i.scdn.co/image',
+		'https://spclient.wg.spotify.com/metadata/4',
+		'https://inbox.google.com/sync',
+		'https://www.google.com/complete/search',
+		'https://audio-sp-dca.pscdn.co/audio',
+		'https://scannables.scdn.co/uri/800/spotify',
+		'https://events.redditmedia.com',
+		'https://audio4-ak-spotify-com.akamaized.net/audio',
+		'https://spclient.wg.spotify.com',
+		'https://e.crashlytics.com',
+		'https://venmopics.appspot.com',
+		'https://venmo-merchant-images.s3.amazonaws.com',
+		'https://api.venmo.com/v1/account/settings/social',
+		'https://api.venmo.com/v1/alerts',
+		'https://platform-lookaside.fbsbx.com',
+		'https://api.venmo.com/v1/stories/target-or-actor',
+		'https://api.venmo.com/v1/users/merchant-payments-activation-views',
+		'https://api.venmo.com/v1/account',
+		'https://api.venmo.com/v1/venmo-card/settings',
+		'https://api.venmo.com/v1/payment-methods',
+		'https://api.venmo.com/v1/checkpoints',
+		'https://media.licdn.com/dms/image',
+		'https://www.linkedin.com/realtime/realtimeFrontendTimestamp',
+		'https://www.linkedin.com/li/track',
+		'https://static.licdn.com',
+		'https://www.linkedin.com/voyager/api/jobs/jobSeekerPreferences',
+		'https://www.linkedin.com/voyager/api/voyagerIdentityMarketplaceRoles',
+		'https://www.linkedin.com/voyager/api/voyagerIdentityProfileActionsV2?ids=',
+		'https://www.linkedin.com/voyager/api/legoWidgetImpressionEvents',
+		'https://www.linkedin.com/voyager/api/voyagerIdentityProfiles',
+		'https://www.linkedin.com/voyager/api/messaging/presenceStatuses',
+		'https://www.linkedin.com/voyager/api/typeahead/hits',
+		'https://www.linkedin.com/voyager/api/voyagerIdentityDashPrivacySettings',
+		'https://www.linkedin.com/voyager/api/premium/featureAccess',
+		'https://www.linkedin.com/voyager/api/feed/updates',
+		'https://www.linkedin.com/voyager/api/voyagerIdentitySearchAppearances',
+		'https://www.linkedin.com/voyager/api/identity/ge',
+		'https://www.linkedin.com/voyager/api/voyagerGrowthPageContent',
+		'https://www.linkedin.com/voyager/api/feed/packageRecommendations',
+		'https://media.licdn.com/media-proxy',
+		'https://dms.licdn.com/playback',
+		'https://dms.licdn.com/video-thumbs',
+		'https://www.linkedin.com/voyager/api/feed/richRecommendedEntities',
+		'https://www.linkedin.com/voyager/api/messaging/badge?action=markAllItemsAsSeen',
+		'https://www.linkedin.com/csp/simt',
+		'https://www.linkedin.com/voyager/api/growth/emailConfirmationTask',
+		'https://www.linkedin.com/voyager/api/messaging/badge?action=markAllItemsAsSeen',
+		'https://www.linkedin.com/voyager/api/messaging/conversations',
+		'https://www.linkedin.com/voyager/api/messaging/typeahead/hits',
+		'https://www.linkedin.com/voyager/api/messaging/peripheral/messagingSearchHistory',
+		'https://www.linkedin.com/cross-promo-fe/api/promo',
+		'https://www.linkedin.com/voyager/api/feed/badge',
+		'https://www.linkedin.com/voyager/api/search/history',
+		'https://js.stripe.com',
+		'https://play.googleapis.com/log/batch',
+		'https://mobilenetworkscoring-pa.googleapis.com/v1/GetWifiQuality',
+		'https://play.googleapis.com/log/batch',
+		'https://android.googleapis.com/auth',
+		'http://b.scorecardresearch.com',
+		'https://graph.facebook.com',
+		'https://vortex.hulu.com/api/v3/event',
+		'https://t.appsflyer.com/api',
+		'https://img.hulu.com',
+		'https://img1.hulu.com',
+		'https://img2.hulu.com',
+		'https://img3.hulu.com',
+		'https://img4.hulu.com',
+		'https://img5.hulu.com',
+		'https://img6.hulu.com',
+		'https://img7.hulu.com',
+		'https://img8.hulu.com',
+		'https://discover.hulu.com/content/v4/search',
+		'https://discover.hulu.com/content/v4/me/state',
+		'https://play.googleapis.com/play/log',
+		'https://stats.appsflyer.com/stats',
+		'https://play.hulu.com/v4/playlist',
+		'https://license.hulu.com',
+		'https://ads-e-darwin.hulustream.com',
+		'https://manifest.hulustream.com',
+		'https://ib.hulu.com/thumb',
+		'https://hulu.hb.omtrdc.net',
+		'https://t2.hulu.com',
+		'https://mb.moatads.com',
+		'https://http-e-darwin.hulustream.com',
+		'https://geo.moatads.com',
+		'https://px.moatads.com',
+		'https://z.moatads.com',
+		'https://ag.innovid.com',
+		'https://s.innovid.com',
+		'https://cws-hulu.conviva.com/0/wsg',
+		'https://settings.crashlytics.com/spi/v2/platforms/android/apps',
+		'https://android-appboot.netflix.com/appboot',
+		'https://android.prod.cloud.netflix.com/msl',
+		'https://android.prod.cloud.netflix.com/ichnaea',
+		'https://cast.google.com/cast/nearby/search',
+		'https://android.clients.google.com/c2dm/register3',
+		'https://keepersecurity.com/api/rest/vault/execute_v2_command'
+	]
 
-	old_url_parts = ['googlevideo.com/initplayback',
-	'googlevideo.com/videoplayback',
-	'com/generate_204',
-	'/recommendations?',
-	'/recommendationRequests?',
-	'/marketplacePreferences?',
-	'/memberConnections?',
-	'/profilePromotions?',
-	'/following?',
-	'/profileContactInfo?',
-	'/positionGroups?',
-	'/posts?',
-	'/volunteerCauses?',
-	'/skills?',
-	'/suggestedSkills',
-	'/suggestedTopSkills',
-	'/networkinfo?',
-	'.png',
-	'.webp',
-	'.jpg',
-	'-ix.1.oca.nflxvideo.net']
+	old_url_parts = [
+				'googlevideo.com/initplayback',
+				'googlevideo.com/videoplayback',
+				'com/generate_204',
+				'/recommendations?',
+				'/recommendationRequests?',
+				'/marketplacePreferences?',
+				'/memberConnections?',
+				'/profilePromotions?',
+				'/following?',
+				'/profileContactInfo?',
+				'/positionGroups?',
+				'/posts?',
+				'/volunteerCauses?',
+				'/skills?',
+				'/suggestedSkills',
+				'/suggestedTopSkills',
+				'/networkinfo?',
+				'.png',
+				'.webp',
+				'.jpg',
+				'-ix.1.oca.nflxvideo.net'
+	]
 
 	old = False
 	count = 0
-	#analyze_all()
+	# analyze_all()
 	for flow in flows:
 		print(count)
 		for oldURL in old_urls:
@@ -309,8 +316,8 @@ def check_flow(flow):
 	AppDefault.syncSource(flow, results)
 	if 'RawDataSearch' in appList:
 		RawDataSearch.checkRawData(flow, results)
-	#print(flow.all)
-	#print_logs(results)
+	# print(flow.all)
+	# print_logs(results)
 	send_logs(results)
 
 
@@ -334,8 +341,8 @@ def print_logs(log_results):
 def test_flows(numlist):
 	for num in numlist:
 		print(num)
-		#print(flows[num].all)
-		#print(AppDefault.cleanEncoding(flows[num].responseContent))
+		# print(flows[num].all)
+		# print(AppDefault.cleanEncoding(flows[num].responseContent))
 		check_flow(flows[num])
 
 
@@ -350,5 +357,5 @@ def analyze_all():
 separate_flows()
 # printFlows()
 analyze_all()
-#test_flows(testNumList)
+# test_flows(testNumList)
 # findNewFlows()
