@@ -4,6 +4,8 @@
 try:
   kill "$(pgrep mitmdump)"
 
+export SSLKEYLOGFILE=/project/keylogfile.txt
+
 echo "" > stream.txt
 echo "" > capture.txt
 now=$(date +"%Y_%m_%d_%H_%M")
