@@ -1,7 +1,7 @@
 from mitmproxy.net.http.http1.assemble import assemble_request, assemble_response
 import os
 
-f = open(os.getcwd() + 'stream.txt', 'w')
+f = open(os.getcwd() + '/stream.txt', 'w')
 
 
 def request(flow):
