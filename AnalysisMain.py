@@ -12,7 +12,7 @@ import AndroidDataPrivacy.Applications.Telegram as Telegram
 import AndroidDataPrivacy.Applications.WhatsApp as WhatsApp
 import AndroidDataPrivacy.Applications.Wire as Wire
 import AndroidDataPrivacy.Applications.Youtube as YouTube
-import AndroidDataPrivacy.AnalysisFlow as AnalysisFlow
+import AndroidDataPrivacy.Flow as AnalysisFlow
 import AndroidDataPrivacy.RawDataSearch as RawDataSearch
 # import AndroidDataPrivacy.Result as Result
 import AndroidDataPrivacy.syslog_client as syslog_client

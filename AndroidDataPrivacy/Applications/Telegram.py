@@ -1,4 +1,4 @@
-import AndroidDataPrivacy.AnalysisFlow as Flow
+import AndroidDataPrivacy.Flow as Flow
 import AndroidDataPrivacy.Result as Result
 import AndroidDataPrivacy.Applications.AppDefault as AppDefault
 
