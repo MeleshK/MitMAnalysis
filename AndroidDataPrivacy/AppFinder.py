@@ -1,79 +1,40 @@
-# import AndroidDataPrivacy.Flow as Flow
+# import AndroidDataPrivacy.AnalysisFlow as AnalysisFlow
 # import AndroidDataPrivacy.Result as Result
 
 
 def find_app(flow, app_list):
+	# requestHeaders = flow.get_request_headers()
+	# url = flow.raw_flow.request.pretty_host
+	# flow.raw_flow.request.user
+	useragent = flow.get_user_agent()
+	useragentstring = str(useragent[1])
+	flow.user_agent = useragentstring
 	app = ''
-	if app == '' and 'referer' in flow.requestHeaders:
-		app = identify_referer(flow.requestHeaders['referer'])
-	elif app == '' and 'Referer' in flow.requestHeaders:
-		app = identify_referer(flow.requestHeaders['Referer'])
-	if 'app' in flow.requestHeaders.keys():
-		app = flow.requestHeaders['app']
 
-	if 'LinkedIn' in app_list:
-		import AndroidDataPrivacy.Applications.LinkedIn as LinkedIn
-		if flow.url in LinkedIn.urls:
-			return 'LinkedIn'
-		for item in LinkedIn.partialURLs:
-			if flow.url.find(item) > -1:
-				return 'LinkedIn'
+	for application in app_list:
+		# print('app:\t'+application.lower() + '\tUser Agent String\t'+useragentstring + '\n')
+		found = useragentstring.find(application.lower())
+		if 1 <= found:
+			app = application
 
-	if 'FDroid' in app_list:
-		import AndroidDataPrivacy.Applications.FDroid as FDroid
-		if flow.url in FDroid.urls:
-			return 'FDroid'
-		for item in FDroid.partialURLs:
-			if flow.url.find(item) > -1:
-				return 'FDroid'	
-
-	if 'Session' in app_list:
-		import AndroidDataPrivacy.Applications.Session as Session
-		if flow.url in Session.urls:
-			return 'Session'
-		for item in Session.partialURLs:
-			if flow.url.find(item) > -1:
-				return 'Session'	
-
-	if 'Signal' in app_list:
-		import AndroidDataPrivacy.Applications.Signal as Signal
-		if flow.url in Signal.urls:
-			return 'Signal'
-		for item in Signal.partialURLs:
-			if flow.url.find(item) > -1:
-				return 'Signal'
-
-	if 'Telegram' in app_list:
-		import AndroidDataPrivacy.Applications.Telegram as Telegram
-		if flow.url in Telegram.urls:
-			return 'Telegram'
-		for item in Telegram.partialURLs:
-			if flow.url.find(item) > -1:
-				return 'Telegram'
-
-	if 'WhatsApp' in app_list:
-		import AndroidDataPrivacy.Applications.WhatsApp as WhatsApp
-		if flow.url in WhatsApp.urls:
-			return 'WhatsApp'
-		for item in WhatsApp.partialURLs:
-			if flow.url.find(item) > -1:
-				return 'WhatsApp'
-
-	if 'Wire' in app_list:
-		import AndroidDataPrivacy.Applications.Wire as Wire
-		if flow.url in Wire.urls:
-			return 'Wire'
-		for item in Wire.partialURLs:
-			if flow.url.find(item) > -1:
-				return 'Wire'
-
-	if app == '' and 'User-Agent' in flow.requestHeaders.keys():
-		app = identify_user_agent(flow.requestHeaders['User-Agent'], app_list)
-	if app == '':
-		app = identify_uniform_resource_locator(flow, flow.url, app_list)
-	app = translate(app)
+		else:
+			app = ''
+	flow.app = app
 	return app
 
+
+def find_app2(flow, app_list, useragentstring):
+	app = ''
+
+	for application in app_list:
+		# print('app:\t'+application.lower() + '\tUser Agent String\t'+useragentstring + '\n')
+		found = useragentstring.find(application)
+		if 1 <= found:
+			app = application
+			return app
+		else:
+			app = ''
+	return app
 
 def identify_user_agent(agent, app_list):
 	if 'AndroidNative' in app_list:

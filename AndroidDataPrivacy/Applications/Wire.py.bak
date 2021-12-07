@@ -1,50 +1,25 @@
-import AndroidDataPrivacy.AnalysisFlow as Flow
+import AndroidDataPrivacy.Flow as Flow
 import AndroidDataPrivacy.Result as Result
 import AndroidDataPrivacy.Applications.AppDefault as AppDefault
 
-urls = ['https://www.googleapis.com/auth/fitness.reproductive_health.write',
-								'https://www.googleapis.com/auth/fitness.location.write',
-								'https://www.googleapis.com/auth/games',
-								'http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense',
-								'https://www.googleapis.com/auth/drive.file',
-								'https://www.googleapis.com/auth/plus.me',
-								'https://www.googleapis.com/auth/drive',
-								'https://www.googleapis.com/auth/fitness.body_temperature.write',
-								'https://www.googleapis.com/auth/fitness.body.write',
-								'https://www.googleapis.com/auth/fitness.activity.read',
-								'https://www.googleapis.com/auth/fitness.location.read',
-								'https://www.googleapis.com/auth/fitness.body_temperature.read',
-								'https://www.googleapis.com/auth/datastoremobile',
-								'https://www.googleapis.com/auth/fitness.activity.write',
-								'http://www.gstatic.com/android/hangouts/hangouts_mms_ua_profile.xml',
-								'https://www.googleapis.com/auth/fitness.nutrition.read',
-								'https://www.googleapis.com/auth/fitness.blood_pressure.read',
-								'https://www.googleapis.com/auth/fitness.body.read',
-								'https://www.googleapis.com/auth/plus.login',
-								'https://www.googleapis.com/auth/fitness.nutrition.write',
-								'https://www.googleapis.com/auth/games_lite',
-								'http://javax.xml.XMLConstants/feature/secure-processing',
-								'https://www.googleapis.com/auth/appstate',
-								'http://www.w3.org/ns/ttml#parameter',
-								'https://www.googleapis.com/auth/fitness.blood_glucose.write',
-								'http://ns.adobe.com/xap/1.0/',
-								'https://www.googleapis.com/auth/fitness.oxygen_saturation.write',
-								'https://www.googleapis.com/auth/drive.appdata',
-								'https://www.googleapis.com/auth/games.firstparty',
-								'https://www.googleapis.com/auth/fitness.reproductive_health.read ',
-								'https://www.googleapis.com/auth/fitness.blood_pressure.write',
-								'https://www.googleapis.com/auth/drive.apps',
-								'http://schemas.android.com/apk/res/android',
-								'https://www.googleapis.com/auth/fitness.blood_glucose.read',
-								'https://www.googleapis.com/auth/fitness.oxygen_saturation.read']
+urls = ['http://schemas.android.com/apk/res-auto', \
+'http://schemas.android.com/apk/res/android', \
+'http://xmlpull.org/v1/doc/features.html#indent-output', \
+'https://account.wire.com', \
+'https://clientblacklist.wire.com/prod/android', \
+'https://plus.google.com/', \
+'https://prod-nginz-https.wire.com', \
+'https://prod-nginz-ssl.wire.com', \
+'https://teams.wire.com', \
+'https://wire.com', \
+'https://www.googleapis.com/auth/games', \
+'https://www.googleapis.com/auth/games_lite']
 
 partialURLs = []
 
-userAgents = ['network.loki.messenger']
+userAgents = ['com.wire']
 
 partialUserAgents = []
-
-
 def checkBehavior(flow, results):
 	if (flow.requestType == 'GET'):
 		analyzeGetRequest(flow, results)
