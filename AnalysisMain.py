@@ -17,7 +17,7 @@ import AndroidDataPrivacy.RawDataSearch as RawDataSearch
 # import AndroidDataPrivacy.Result as Result
 import AndroidDataPrivacy.syslog_client as syslog_client
 from mitmproxy.io import FlowReader
-#import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 # filename = '/project/mitmproxy_2021_12_03_14_56.cap'
 filename = '/project/mitmproxy_2021_11_29_15_48.cap'
@@ -159,9 +159,9 @@ def print_logs(log_results):
 
 
 def plot_logs(log_results):
-#	plt.plot([1, 2, 3, 4])
-#	plt.ylabel('some numbers')
-#	plt.show()
+	# plt.plot([1, 2, 3, 4])
+	# plt.ylabel('some numbers')
+	# plt.show()
 	return
 
 
