@@ -34,6 +34,8 @@ def find_app2(flow, app_list, useragentstring):
 			return app
 		else:
 			app = ''
+
+	app = identify_user_agent(useragentstring, app_list)
 	return app
 
 def identify_user_agent(agent, app_list):

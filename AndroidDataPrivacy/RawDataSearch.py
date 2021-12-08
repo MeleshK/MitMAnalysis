@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import AndroidDataPrivacy.Flow as Flow
+import AndroidDataPrivacy.AnalysisFlow as Flow
 import AndroidDataPrivacy.Result as Result
 
 filename = 'searchitems.txt'

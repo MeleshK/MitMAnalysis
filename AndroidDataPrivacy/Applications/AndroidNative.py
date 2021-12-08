@@ -1,4 +1,4 @@
-import AndroidDataPrivacy.Flow as Flow
+import AndroidDataPrivacy.AnalysisFlow as Flow
 import AndroidDataPrivacy.Result as Result
 import AndroidDataPrivacy.Applications.AppDefault as AppDefault
 
@@ -61,26 +61,31 @@ appIds = {'1:1086610230652:android:131e4c3db28fca84':'com.google.android.googleq
 '1:484286080282:android:7eb516d49bb4ad11':'com.netflix.mediaclient'}
 
 def checkBehavior(flow, results):
-	if (flow.requestType == 'GET'):
+	if flow.get_request_type() == 'GET':
 		analyzeGetRequest(flow, results)
-	if (flow.requestType == 'POST'):
+	if flow.get_request_type == 'POST':
 		analyzePostRequest(flow, results)
+	if flow.get_request_type == 'HEAD':
+		analyzePostRequest(flow, results)
+	return
 
 def analyzeGetRequest(flow, results):
 	checkGetURL(flow, results)
-	checkRequestHeaders(flow, flow.requestHeaders, results)
-	AppDefault.checkRequestHeadersDefault(flow, flow.requestHeaders, results)
-	checkResponseHeaders(flow, flow.responseHeaders, results)
-	AppDefault.checkResponseHeadersDefault(flow, flow.responseHeaders, results)
+	checkRequestHeaders(flow, flow.get_request_headers(), results)
+	AppDefault.checkRequestHeadersDefault(flow, flow.get_request_headers(), results)
+	checkResponseHeaders(flow, flow.get_response_headers(), results)
+	AppDefault.checkResponseHeadersDefault(flow, flow.get_response_headers(), results)
 	AppDefault.analyzeGetRequestDefault(flow, results)
+	return
 
 def analyzePostRequest(flow, results):
 	checkPostURL(flow, results)
-	checkRequestHeaders(flow, flow.requestHeaders, results)
-	AppDefault.checkRequestHeadersDefault(flow, flow.requestHeaders, results)
-	checkResponseHeaders(flow, flow.responseHeaders, results)
-	AppDefault.checkResponseHeadersDefault(flow, flow.responseHeaders, results)
+	checkRequestHeaders(flow, flow.get_request_headers(), results)
+	AppDefault.checkRequestHeadersDefault(flow, flow.get_request_headers(), results)
+	checkResponseHeaders(flow, flow.get_response_headers(), results)
+	AppDefault.checkResponseHeadersDefault(flow, flow.get_response_headers(), results)
 	AppDefault.analyzePostRequestDefault(flow, results)
+	return
 
 def checkRequestHeaders(flow, headers, results):
 	if ('User-Agent' in headers.keys()):
@@ -95,9 +100,9 @@ def checkRequestHeaders(flow, headers, results):
 			results.append(Result.Result(flow, type, info))
 		elif (headers['User-Agent'][:10] == 'DroidGuard'):
 			flow.source = 'DroidGuard'
-		elif (headers['User-Agent'][:14] == 'Android-Finsky' and flow.source == ''):
+		elif (headers['User-Agent'][:14] == 'Android-Finsky' and flow.get_source() == ''):
 			flow.source = 'Google Play Store'
-		elif (headers['User-Agent'].find('Chrome') > -1 and flow.source == ''):
+		elif (headers['User-Agent'].find('Chrome') > -1 and flow.get_source() == ''):
 			if ('referer' in headers.keys() and headers['referer'].find('android-app://com.google.android.googlequicksearchbox') == 0):
 				flow.source = 'News Feed Article'
 			else:
@@ -124,6 +129,7 @@ def checkRequestHeaders(flow, headers, results):
 		type = 'System Info: Crashlytics ID'
 		info = headers['X-CRASHLYTICS-INSTALLATION-ID']
 		results.append(Result.Result(flow, type, info))
+	return
 
 def checkResponseHeaders(flow, headers, results):
 	return None
@@ -215,6 +221,7 @@ def checkGetURL(flow, results):
 
 	elif (flow.url.find('https://www.gstatic.com/android/keyboard') == 0):
 		flow.source = 'Android Keyboard'
+	return
 
 def checkPostURL(flow, results):
 	#Weather lookup
@@ -475,6 +482,7 @@ def checkPostURL(flow, results):
 			info = flow.requestContent[flow.requestContent.find('"appInstanceId":')+18:]
 			info = info[:info.find('"')]
 			results.append(Result.Result(flow, type, info))
+	return
 
 
 def getURLs():
